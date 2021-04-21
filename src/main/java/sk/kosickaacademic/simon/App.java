@@ -11,7 +11,8 @@ public class App
     {
         //System.out.println(new DatabaseMongo().insertNewNote("Comp", "Buy a new computer", 3, 1500));
         //System.out.println(new DatabaseMongo().updateNote());
-        ArrayList<Notes> list = new DatabaseMongo().getNotesByPriority(2);
+        ArrayList<Notes> list = new DatabaseMongo().getNotesByTitle("running");
         for(Notes temp : list) System.out.println(temp.toString());
+        System.out.println(new DatabaseMongo().getNotesJSON());
     }
 }
