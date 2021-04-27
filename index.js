@@ -49,6 +49,18 @@ app.get('/notes', (req, res) => {
 
 })
 
+app.get('/note', (req, res) => {
+    MongoClient.connect(connection, {useNewUrlParser: true}, (error, client) => {
+        if(error) return console.log("Invalid connection")
+        var title = req.query.title
+        const db = client.db(database)
+        db.collection('notes').find({"title": {'$regex': '\w*' +title +'\w*', '$options': 'i'}}).toArray((err, result) => {
+            if(err) throw err
+            res.send(result)
+        })
+    })
+})
+
 app.post('/note/new', (req, res) => {
     MongoClient.connect(connection, (error, client) => {
         if(error) return console.log("Invalid connection")
