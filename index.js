@@ -68,7 +68,7 @@ app.patch('/note/done', (req, res) => {
     MongoClient.connect(connection, (error, client) => {
         if(error) return console.log("Invalid connection")
         const db = client.db(database)
-        db.collection('notes').update({'title':req.body.title}, {$set: {'done':true}}, (err, result) => {
+        db.collection('notes').updateOne({'title':req.query.title}, {$set: {'done':true}}, (err, result) => {
             if(err) throw err
             res.send({"Info":"Update succesfull"})
         })
